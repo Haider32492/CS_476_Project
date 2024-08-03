@@ -1,86 +1,56 @@
-// src/pages/Profile.js
 import React from 'react';
-import placeholder from '../assets/placeholder.png'
-import Card from '../components/Card';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+
 const Profile = () => {
-    const card = {}
     return (
         <>
+            <div className='min-h-screen bg-gray-100 flex items-center justify-center py-10 px-5'>
+                <motion.div 
+                    className='bg-white flex flex-col items-center justify-start w-full max-w-lg p-8 rounded-2xl shadow-2xl'
+                    initial={{ opacity: 0, y: -50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1 }}
+                >
+                    <h1 className='text-center text-4xl tracking-wide font-bold text-gray-800 mb-8'>Profile</h1>
 
+                    <div className='flex flex-col w-full gap-6'>
+                        <div className='relative h-11 w-full min-w-[200px]'>
+                            <input 
+                                type='text' 
+                                placeholder='Name' 
+                                className='peer h-full w-full border-b border-gray-300 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-gray-800 outline-none transition-all placeholder-shown:border-gray-300 focus:border-blue-500 disabled:border-0 disabled:bg-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100' 
+                            />
+                            <label 
+                                className='after:content-[""] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-gray-500'
+                            >
+                                Name
+                            </label>
+                        </div>
+                        <div className='relative h-11 w-full min-w-[200px]'>
+                            <input 
+                                type='email' 
+                                placeholder='Email' 
+                                className='peer h-full w-full border-b border-gray-300 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-gray-800 outline-none transition-all placeholder-shown:border-gray-300 focus:border-blue-500 disabled:border-0 disabled:bg-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100' 
+                            />
+                            <label 
+                                className='after:content-[""] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-gray-500'
+                            >
+                                Email
+                            </label>
+                        </div>
 
-            <div className='flex items-center justify-start w-full gap-20 px-28 py-20' >
-                <div className='max-w-[50%]'>
-                    <div>
-                        <p className='pb-2 font-semibold'>Profile Photo</p>
-                        <img src={placeholder} alt='placeholder' className='w-full h-full' />
+                        <div className='w-full mt-10 flex justify-center'>
+                            <Link to='/dashboard' className='px-10 py-3 bg-[#FFE500] text-white font-bold rounded-lg tracking-wide text-lg text-center shadow-lg hover:bg-yellow-600 transition duration-300'>
+                                My Dashboard
+                            </Link>
+                        </div>
                     </div>
-                    <div className='w-ful mt-10 flex items-center justify-center' >
-                        <Link to='/dashboard' className='w-full text-center  py-2  bg-[#FFE500] font-semibold rounded-md tracking-wide text-lg'>
-                            My Dashboard
-                        </Link>
-                    </div>
-
-
-                </div>
-
-
-                <div className='flex-1 max-w-[50%]'>
-                    <div class="relative mt-6">
-                        <input type="email" name="email" id="email" placeholder="Email Address" class="peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" autocomplete="NA" />
-                        <label for="email" class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Email Address</label>
-                    </div>
-                    <div class="relative mt-6">
-                        <input type="text" name="firstName" id="firstName" placeholder="First Name" class="peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" autocomplete="NA" />
-                        <label for="firstName" class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">First Name</label>
-                    </div>
-                    <div class="relative mt-6">
-                        <input type="text" name="lastName" id="lastName" placeholder="Last Name" class="peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" autocomplete="NA" />
-                        <label for="lastName" class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Last Name</label>
-                    </div>
-                </div>
+                </motion.div>
             </div>
-
-            <div className='border-t  border-gray-300 flex items-center justify-center flex-col w-full gap-8 px-28 py-14 '>
-                <div className='flex items-center justify-start w-full'>
-                    <p className='pb-2 font-semibold text-lg'>Posted Problems</p>
-                </div>
-
-                <div className=' '>
-                    <div className='flex items-center justify-center gap-8 '>
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-
-
-
-                    </div>
-
-                </div>
-
-            </div>
-            <div className='border-t  border-gray-300 flex items-center justify-center flex-col w-full gap-8 px-28 py-14 '>
-                <div className='flex items-center justify-start w-full'>
-                    <p className='pb-2 font-semibold text-lg'>Posted Solutions</p>
-                </div>
-
-                <div className=' '>
-                    <div className='flex items-center justify-center  gap-8'>
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
         </>
     );
-}
+};
 
 export default Profile;
+

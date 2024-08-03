@@ -1,73 +1,128 @@
-// src/pages/SignIn.js
-import React from 'react';
-import img from './../assets/main.png'
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion'; // Importing Framer Motion for animations
+import logo from './../assets/AutoGeniusLogo.png'; // Importing the logo
+import { FaEnvelope, FaLock } from 'react-icons/fa'; // Importing icons from react-icons
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const SignIn = () => {
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+    const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:3000/api/login', formData);
+            console.log('Response:', response); // Log the response data
+            alert(response.data.message);
+            setErrorMessage(''); // Clear any previous error message
+            navigate('/dashboard'); // Redirect to the dashboard
+        } catch (error) {
+            console.error('Login error:', error); // Log the entire error object
+            const message = error.response?.data?.error || 'An error occurred. Please try again.';
+            console.log('Error Message:', message); // Log the error message
+            setErrorMessage(message); // Set the error message to be displayed
+        }
+    };
+
     return (
-
-
-
-        <>
-
-            <div className="min-h-[85vh] flex items-center justify-center pt-14 pl-20 pr-20 pb-20 gap-10  ">
-
-                <div className='min-w-[40vw] max-w-[40vw] min-h-[85vh] max-h-[85vh] flex items-center justify-center'>
-                    <img src={img} alt='logo-img1' className='min-w-[40vw] max-w-[40vw] min-h-[85vh] max-h-[85vh]' />
-                </div>
-
-                <div className='min-w-[40vw] max-w-[40vw] bg-[#D9D9D9] min-h-[85vh] max-h-[85vh]  '>
-
-                    <div className='flex items-center justify-center w-full min-h-[85vh] max-h-[85vh] flex-col'>
-
-
-                        <div className='flex flex-col gap-[3vh] h-full  w-full items-center justify-center'>
-
-
-                            <div class="flex flex-col gap-6 w-[70%]">
-                                <div class="relative h-11 w-full min-w-[200px]">
-                                    <input placeholder="Name"
-                                        class="peer h-full w-full border-b border-gray-800 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
-                                    <label
-                                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:after:scale-x-100 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                                        Name
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-col gap-6 w-[70%]">
-                                <div class="relative h-11 w-full min-w-[200px]">
-                                    <input placeholder="Email"
-                                        class="peer h-full w-full border-b border-gray-800 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
-                                    <label
-                                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:after:scale-x-100 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                                        Email
-                                    </label>
-                                </div>
-                            </div>
-
-                            {/* <p className=''></p> */}
-                            <Link to='/forgotPassword' className='pl-[50%] font-semibold'>
-                                Forgot Password?
-                            </Link>
-                        </div>
-                        <button className='text-center px-[20%] py-2 mt-10 bg-[#FFE500] font-semibold rounded-md tracking-wide text-lg'>
-                            Login
-                        </button>
-
-                        <Link to='/signup' className='py-4'> Dont Have an Account? Signup</Link>
-
-
-
-
-
+        <div className='min-h-screen bg-white flex flex-col items-center justify-center'>
+            <motion.img 
+                src={logo} 
+                alt="AutoGenius Logo" 
+                className='w-24 h-24 md:w-32 md:h-32 mb-8' 
+                initial={{ opacity: 0, scale: 0.5 }} 
+                animate={{ opacity: 1, scale: 1 }} 
+                transition={{ duration: 1 }}
+            />
+            <motion.h1 
+                className='text-4xl md:text-5xl font-bold tracking-wide text-gray-800 mb-8' 
+                initial={{ opacity: 0, y: -50 }} 
+                animate={{ opacity: 1, y: 0 }} 
+                transition={{ duration: 1, delay: 0.5 }}
+            >
+                Sign In
+            </motion.h1>
+            <motion.form 
+                className='w-full max-w-md bg-white p-8 rounded-lg shadow-lg' 
+                initial={{ opacity: 0, y: 50 }} 
+                animate={{ opacity: 1, y: 0 }} 
+                transition={{ duration: 1, delay: 1 }}
+                onSubmit={handleSubmit}
+            >
+                {errorMessage && (
+                    <div className='mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg'>
+                        {errorMessage}
                     </div>
-
-
-
+                )}
+                <div className='mb-6'>
+                    <label className='block text-gray-800 text-sm font-bold mb-2' htmlFor='email'>
+                        Email
+                    </label>
+                    <div className='flex items-center border-b border-gray-300 py-2'>
+                        <FaEnvelope className='text-gray-500 mr-3' />
+                        <input 
+                            type='email' 
+                            name='email' 
+                            id='email' 
+                            value={formData.email} 
+                            onChange={handleChange} 
+                            className='appearance-none bg-transparent border-none w-full text-gray-800 mr-3 py-1 px-2 leading-tight focus:outline-none' 
+                            placeholder='Your email' 
+                            required 
+                        />
+                    </div>
                 </div>
-            </div>
-        </>
+                <div className='mb-6'>
+                    <label className='block text-gray-800 text-sm font-bold mb-2' htmlFor='password'>
+                        Password
+                    </label>
+                    <div className='flex items-center border-b border-gray-300 py-2'>
+                        <FaLock className='text-gray-500 mr-3' />
+                        <input 
+                            type='password' 
+                            name='password' 
+                            id='password' 
+                            value={formData.password} 
+                            onChange={handleChange} 
+                            className='appearance-none bg-transparent border-none w-full text-gray-800 mr-3 py-1 px-2 leading-tight focus:outline-none' 
+                            placeholder='Your password' 
+                            required 
+                        />
+                    </div>
+                </div>
+                <div className='flex items-center justify-between'>
+                    <button 
+                        type='submit' 
+                        className='bg-[#FFE500] hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' 
+                    >
+                        Sign In
+                    </button>
+                </div>
+                <div className='mt-4 text-center'>
+                    <Link to='/forgot-password' className='text-gray-800 hover:text-yellow-700 font-bold'>
+                        Forgot Password?
+                    </Link>
+                </div>
+                <div className='mt-4 text-center'>
+                    <p className='text-gray-800'>
+                        Don't have an account?{' '}
+                        <Link to='/signup' className='text-yellow-500 hover:text-yellow-700 font-bold'>
+                            Sign Up
+                        </Link>
+                    </p>
+                </div>
+            </motion.form>
+        </div>
     );
 }
 
